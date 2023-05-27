@@ -1,4 +1,4 @@
-package moexquote
+package moexapi
 
 type MoexQuotesDTO struct {
 	MarketData MarketData `json:"marketdata"`

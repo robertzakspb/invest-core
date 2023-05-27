@@ -1,11 +1,12 @@
-package moexquote
+package moexapi
 
 import (
-	quote "compound/Core/Quotes/Common"
-	utils "compound/Core/Utilities"
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	quote "github.com/compoundinvest/invest-core/quote/entity"
+	utils "github.com/compoundinvest/invest-core/utilities/slice"
 )
 
 type SimpleQuote = quote.SimpleQuote

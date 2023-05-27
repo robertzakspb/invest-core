@@ -1,4 +1,4 @@
-package quote
+package entity
 
 type SimpleQuote interface {
 	Quote() float64

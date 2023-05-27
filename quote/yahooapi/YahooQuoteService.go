@@ -1,11 +1,12 @@
 package yahooapi
 
 import (
-	quote "compound/Core/Quotes/Common"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"strings"
+
+	quote "github.com/compoundinvest/invest-core/quote/entity"
 )
 
 type SimpleQuote = quote.SimpleQuote
