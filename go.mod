@@ -1,3 +1,3 @@
 module github.com/compoundinvest/invest-core
 
-go 1.20
+go 1.21
