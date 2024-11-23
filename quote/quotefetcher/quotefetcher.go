@@ -21,7 +21,7 @@ func FetchQuotesFor(tickers []TickerWithMarket) []entity.SimpleQuote {
 	moexTickers := []string{} //For MOEX it makes more sense to do a bulk download of quotes
 	for _, security := range tickers {
 		switch security.MIC {
-		case "MOEX":
+		case "MISX":
 			moexTickers = append(moexTickers, security.Ticker)
 		case "XBEL":
 			belexQuote, err := belex.FetchQuoteFor(security.Ticker)
