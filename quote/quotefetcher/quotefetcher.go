@@ -23,7 +23,7 @@ func FetchQuotesFor(tickers []TickerWithMarket) []entity.SimpleQuote {
 		switch security.MIC {
 		case "MOEX":
 			moexTickers = append(moexTickers, security.Ticker)
-		case "BELEX":
+		case "XBEL":
 			belexQuote, err := belex.FetchQuoteFor(security.Ticker)
 			if err != nil {
 				fmt.Println(err)
