@@ -33,7 +33,7 @@ func FetchQuotesFor(tickers []TickerWithMarket) []entity.SimpleQuote {
 		case "XNAS":
 			quotes = append(quotes, yahooapi.FetchQuotes([]string{security.Ticker})...)
 		default:
-			fmt.Println("Unsupported MIC")
+			fmt.Println("Unsupported MIC:", security.MIC, "for ticker:", security.Ticker)
 		}
 	}
 
