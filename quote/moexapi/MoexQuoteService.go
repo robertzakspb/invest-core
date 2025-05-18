@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"slices"
 
 	quote "github.com/compoundinvest/invest-core/quote/entity"
-	utils "github.com/compoundinvest/invest-core/utilities/slice"
 )
 
 type SimpleQuote = quote.SimpleQuote
@@ -43,7 +43,7 @@ func fetchQuotes(tickers []string) []MoexQuote {
 		switch quoteDTO[0].(type) {
 		case string:
 			ticker = quoteDTO[0].(string)
-			if !utils.Contains(tickers, ticker) {
+			if !slices.Contains(tickers, ticker) {
 				continue
 			}
 
