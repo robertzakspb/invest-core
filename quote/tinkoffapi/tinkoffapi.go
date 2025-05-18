@@ -6,38 +6,13 @@ import (
 	"time"
 
 	tinkoff "github.com/russianinvestments/invest-api-go-sdk/investgo"
-	"github.com/russianinvestments/invest-api-go-sdk/proto"
+	investapi "github.com/russianinvestments/invest-api-go-sdk/proto"
 )
 
-/*
-type SimpleQuote interface {
-	Quote() float64
-	Ticker() string
-}
-
-type GetHistoricCandlesRequest struct {
-	Instrument string
-	Interval   pb.CandleInterval
-	From       time.Time
-	To         time.Time
-	File       bool
-	FileName   string
-	Source     pb.GetCandlesRequest_CandleSource
-}
-
-*/
-
 type TinkoffQuote struct {
-	quote float64
-	ticker string
-}
-
-func (quote TinkoffQuote) Quote() float64 {
-	return quote.quote
-}
-
-func (quote TinkoffQuote) Ticker() string {
-	return quote.ticker
+	Quote     float64
+	Figi      string
+	Timestamp time.Time
 }
 
 func FetchHistoricalQuotesFor(figi string, config tinkoff.Config) ([]TinkoffQuote, error) {
@@ -51,19 +26,17 @@ func FetchHistoricalQuotesFor(figi string, config tinkoff.Config) ([]TinkoffQuot
 		return []TinkoffQuote{}, fmt.Errorf("failed to initialize Tinkoff's market data service")
 	}
 
-	
-	
 	candleRequest := tinkoff.GetHistoricCandlesRequest{
 		Instrument: figi,
-		Interval: investapi.CandleInterval_CANDLE_INTERVAL_DAY,
-		From: time.Now(), //Ignored by the API
-		To: time.Now(), //Ignored by the API
-		File: false,
-		FileName: "",
-		Source: investapi.GetCandlesRequest_CANDLE_SOURCE_UNSPECIFIED,
+		Interval:   investapi.CandleInterval_CANDLE_INTERVAL_DAY,
+		From:       time.Now(), //Ignored by the API
+		To:         time.Now(), //Ignored by the API
+		File:       false,
+		FileName:   "",
+		Source:     investapi.GetCandlesRequest_CANDLE_SOURCE_INCLUDE_WEEKEND,
 	}
 
-	quotes, err := mdService.GetAllHistoricCandles(&candleRequest) 
+	quotes, err := mdService.GetAllHistoricCandles(&candleRequest)
 	if err != nil {
 		return []TinkoffQuote{}, err
 	}
@@ -73,7 +46,12 @@ func FetchHistoricalQuotesFor(figi string, config tinkoff.Config) ([]TinkoffQuot
 		if quote == nil {
 			continue
 		}
-		fmt.Println(time.Unix(quote.Time.GetSeconds(), 0), ":", quote.Close.ToFloat())
+		parsedQuote := TinkoffQuote{
+			Quote:     quote.Close.ToFloat(),
+			Figi:      figi,
+			Timestamp: time.Unix(quote.Time.GetSeconds(), 0),
+		}
+		parsedQuotes = append(parsedQuotes, parsedQuote)
 	}
 
 	return parsedQuotes, nil
