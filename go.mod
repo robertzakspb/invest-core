@@ -1,6 +1,6 @@
 module github.com/compoundinvest/invest-core
 
-go 1.23.1
+go 1.24.3
 
 require github.com/russianinvestments/invest-api-go-sdk v1.28.1
 
