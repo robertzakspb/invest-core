@@ -13,3 +13,8 @@ func (quote BelexQuote) Quote() float64 {
 func (quote BelexQuote) Ticker() string {
 	return quote.stockTicker
 }
+
+//TODO: To fix
+func (quote BelexQuote) ISIN() string {
+	return ""
+}

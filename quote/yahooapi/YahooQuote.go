@@ -25,3 +25,8 @@ func (quote YahooQuote) Ticker() string {
 func (quote YahooQuote) Quote() float64 {
 	return quote.RegularMarketPrice
 }
+
+//TODO: To fix
+func (quote YahooQuote) ISIN() string {
+	return ""
+}

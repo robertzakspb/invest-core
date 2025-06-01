@@ -19,6 +19,11 @@ func (quote MoexQuote) Quote() float64 {
 	return quote.CurrentQuote
 }
 
+//TODO: To fix
+func (quote MoexQuote) ISIN() string {
+	return ""
+}
+
 func (quote MoexQuote) Ticker() string {
 	return quote.stockTicker
 }
