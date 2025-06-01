@@ -14,7 +14,6 @@ func (quote TinkoffQuote) Quote() float64 {
 	return quote.quote
 }
 
-// TODO: To fix
 func (quote TinkoffQuote) ISIN() string {
 	return quote.isin
 }
