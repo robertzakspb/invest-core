@@ -17,3 +17,9 @@ func ConvertToSimpleQuote[T SimpleQuote](quotes []T) []SimpleQuote {
 	}
 	return quotesAsInterface
 }
+
+type SecurityID struct {
+	Figi string
+	ISIN string
+	Ticker string
+}
