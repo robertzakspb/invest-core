@@ -1,5 +1,7 @@
 package yahooapi
 
+import "time"
+
 type YahooQuotesDTO struct {
 	QuoteResponse QuoteResponseDTO `json:"quoteResponse"`
 }
@@ -26,7 +28,11 @@ func (quote YahooQuote) Quote() float64 {
 	return quote.RegularMarketPrice
 }
 
-//TODO: To fix
+// TODO: To fix
 func (quote YahooQuote) ISIN() string {
 	return ""
+}
+
+func (quote YahooQuote) Timestamp() time.Time {
+	return time.Now()
 }
