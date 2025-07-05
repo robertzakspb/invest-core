@@ -10,7 +10,7 @@ import (
 
 
 
-func FetchQuoteFor(ticker string) (BelexQuote, error) {
+func FetchQuoteFor(ticker, figi string) (BelexQuote, error) {
 	sourceURL := "https://www.belex.rs/trgovanje/hartija/dnevni/" + ticker
 	response, err := http.Get(sourceURL)
 	if err != nil {

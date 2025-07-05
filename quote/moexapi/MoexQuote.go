@@ -22,12 +22,12 @@ func (quote MoexQuote) Quote() float64 {
 }
 
 // TODO: To fix
-func (quote MoexQuote) ISIN() string {
+func (quote MoexQuote) Figi() string {
 	return ""
 }
 
-func (quote MoexQuote) Ticker() string {
-	return quote.stockTicker
+func (quote MoexQuote) Currency() string {
+	return "RUB"
 }
 
 func (quote MoexQuote) Timestamp() time.Time {

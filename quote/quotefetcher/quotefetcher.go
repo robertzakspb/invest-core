@@ -15,16 +15,16 @@ type TickerWithMarket struct {
 }
 
 // Universal quote fetcher
-func FetchQuotesFor(tickers []TickerWithMarket) []entity.SimpleQuote {
+func FetchQuotesFor(securities []entity.Security) []entity.SimpleQuote {
 	quotes := []entity.SimpleQuote{}
 
 	moexTickers := []string{} //For MOEX it makes more sense to do a bulk download of quotes
-	for _, security := range tickers {
+	for _, security := range securities {
 		switch security.MIC {
 		case "MISX":
 			moexTickers = append(moexTickers, security.Ticker)
 		case "XBEL":
-			belexQuote, err := belex.FetchQuoteFor(security.Ticker)
+			belexQuote, err := belex.FetchQuoteFor(security.Ticker, security.Figi)
 			if err != nil {
 				fmt.Println(err)
 				continue

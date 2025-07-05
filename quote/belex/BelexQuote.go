@@ -3,7 +3,7 @@ package belex
 import "time"
 
 type BelexQuote struct {
-	stockTicker  string
+	figi string
 	currentQuote float64
 }
 
@@ -12,15 +12,14 @@ func (quote BelexQuote) Quote() float64 {
 	return quote.currentQuote
 }
 
-func (quote BelexQuote) Ticker() string {
-	return quote.stockTicker
-}
-
 func (quote BelexQuote) Timestamp() time.Time {
 	return time.Now()
 }
 
-//TODO: To fix
-func (quote BelexQuote) ISIN() string {
-	return ""
+func (quote BelexQuote) Figi() string {
+	return quote.figi
+}
+
+func (quote BelexQuote) Currency() string {
+	return "RSD"
 }

@@ -20,17 +20,16 @@ type YahooQuote struct {
 	TrailingPE         float64 `json:"trailingPE"`
 }
 
-func (quote YahooQuote) Ticker() string {
-	return quote.Symbol
-}
-
 func (quote YahooQuote) Quote() float64 {
 	return quote.RegularMarketPrice
 }
 
-// TODO: To fix
-func (quote YahooQuote) ISIN() string {
-	return ""
+func (quote YahooQuote) Currency() string {
+	return  "USD"
+}
+
+func (quote YahooQuote) Figi() string {
+	return  ""
 }
 
 func (quote YahooQuote) Timestamp() time.Time {

@@ -4,8 +4,8 @@ import "time"
 
 type SimpleQuote interface {
 	Quote() float64
-	Ticker() string
-	ISIN() string
+	Figi() string
+	Currency() string
 	Timestamp() time.Time
 }
 
@@ -18,8 +18,9 @@ func ConvertToSimpleQuote[T SimpleQuote](quotes []T) []SimpleQuote {
 	return quotesAsInterface
 }
 
-type SecurityID struct {
-	Figi string
-	ISIN string
+type Security struct {
+	Figi   string
+	ISIN   string
 	Ticker string
+	MIC    string
 }
