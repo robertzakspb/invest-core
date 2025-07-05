@@ -11,16 +11,16 @@ import (
 
 type SimpleQuote = quote.SimpleQuote
 
-func FetchQuotes(tickers []string) []SimpleQuote {
+func FetchQuotes(securities []quote.Security) []SimpleQuote {
 	simpleQuotes := []quote.SimpleQuote{}
 
-	quotes := fetchQuotes(tickers)
+	quotes := fetchQuotes(securities)
 	simpleQuotes = append(simpleQuotes, quote.ConvertToSimpleQuote(quotes)...)
 
 	return simpleQuotes
 }
 
-func fetchQuotes(tickers []string) []MoexQuote {
+func fetchQuotes(securities []quote.Security) []MoexQuote {
 	quotesURL := "https://iss.moex.com/iss/engines/stock/markets/shares/boards/tqbr/securities.json?iss.meta=on&iss.only=marketdata&marketdata.columns=SECID,LAST,ISSUECAPITALIZATION"
 
 	response, err := http.Get(quotesURL)
@@ -34,10 +34,17 @@ func fetchQuotes(tickers []string) []MoexQuote {
 	json.NewDecoder(response.Body).Decode(&quotesDTO)
 
 	quotes := []MoexQuote{}
+
+	tickers := []string{}
+	for _, security := range securities {
+		tickers = append(tickers, security.Ticker)
+	}
+
 	for _, quoteDTO := range quotesDTO.MarketData.Data {
 		var ticker string
 		var quote float64
 		var marketCap float64
+		var figi string
 
 		//The first element in the array is the quote's ticker (string)
 		switch quoteDTO[0].(type) {
@@ -45,6 +52,11 @@ func fetchQuotes(tickers []string) []MoexQuote {
 			ticker = quoteDTO[0].(string)
 			if !slices.Contains(tickers, ticker) {
 				continue
+			}
+			for _, security := range securities {
+				if security.Ticker == ticker {
+					figi = security.Figi
+				}
 			}
 
 		default:
@@ -66,7 +78,7 @@ func fetchQuotes(tickers []string) []MoexQuote {
 		default:
 		}
 
-		quotes = append(quotes, MoexQuote{ticker, quote, marketCap})
+		quotes = append(quotes, MoexQuote{ticker, quote, marketCap, figi})
 	}
 
 	return quotes

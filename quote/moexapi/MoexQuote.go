@@ -14,6 +14,7 @@ type MoexQuote struct {
 	stockTicker  string
 	CurrentQuote float64
 	MarketCap    float64
+	figi         string
 }
 
 // MARK: Implementation of the SimpleQuote interface
@@ -23,7 +24,7 @@ func (quote MoexQuote) Quote() float64 {
 
 // TODO: To fix
 func (quote MoexQuote) Figi() string {
-	return ""
+	return quote.figi
 }
 
 func (quote MoexQuote) Currency() string {

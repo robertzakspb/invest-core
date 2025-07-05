@@ -1,8 +1,6 @@
 package quotefetcher
 
 import (
-	"fmt"
-
 	"github.com/compoundinvest/invest-core/quote/belex"
 	"github.com/compoundinvest/invest-core/quote/entity"
 	"github.com/compoundinvest/invest-core/quote/moexapi"
@@ -26,18 +24,16 @@ func FetchQuotesFor(securities []entity.Security) []entity.SimpleQuote {
 		case "XBEL":
 			belexQuote, err := belex.FetchQuoteFor(security.Ticker, security.Figi)
 			if err != nil {
-				fmt.Println(err)
 				continue
 			}
 			quotes = append(quotes, belexQuote)
 		case "XNAS":
 			quotes = append(quotes, yahooapi.FetchQuotes([]string{security.Ticker})...)
 		default:
-			fmt.Println("Unsupported MIC:", security.MIC, "for ticker:", security.Ticker)
 		}
 	}
 
-	moexQuotes := moexapi.FetchQuotes(moexTickers)
+	moexQuotes := moexapi.FetchQuotes(securities)
 	quotes = append(quotes, moexQuotes...)
 
 	return quotes
