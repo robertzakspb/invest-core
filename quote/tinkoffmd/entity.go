@@ -14,13 +14,12 @@ func (quote TinkoffQuote) Quote() float64 {
 	return quote.quote
 }
 
-func (quote TinkoffQuote) ISIN() string {
-	return quote.isin
+func (quote TinkoffQuote) Figi() float64 {
+	return quote.quote
 }
 
-// TODO: To fix
-func (quote TinkoffQuote) Ticker() string {
-	return ""
+func (quote TinkoffQuote) Currency() string {
+	return "RUB"
 }
 
 func (quote TinkoffQuote) Timestamp() time.Time {
