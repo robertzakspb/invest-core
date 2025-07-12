@@ -26,7 +26,7 @@ func FetchHistoricalQuotesFor(id entity.Security, config tinkoff.Config, startDa
 
 	mdService := client.NewMarketDataServiceClient()
 	if mdService == nil {
-		return []TinkoffQuote{}, fmt.Errorf("failed to initialize Tinkoff's market data service")
+		return []TinkoffQuote{}, fmt.Errorf("failed to initialize Tinkoff API's market data service")
 	}
 
 	candles, err := mdService.GetCandles(
