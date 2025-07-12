@@ -14,8 +14,8 @@ func (quote TinkoffQuote) Quote() float64 {
 	return quote.quote
 }
 
-func (quote TinkoffQuote) Figi() float64 {
-	return quote.quote
+func (quote TinkoffQuote) Figi() string {
+	return quote.figi
 }
 
 func (quote TinkoffQuote) Currency() string {
