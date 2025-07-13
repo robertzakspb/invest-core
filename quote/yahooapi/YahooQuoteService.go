@@ -71,10 +71,10 @@ func fetchQuotes(securities []entity.Security) []YahooQuote {
 	var quotesDTO YahooQuotesDTO
 	json.NewDecoder(response.Body).Decode(&quotesDTO)
 
-	for _, quote := range quotesDTO.QuoteResponse.Result {
+	for i := range quotesDTO.QuoteResponse.Result {
 		for _, security := range securities {
-			if quote.Symbol == security.Ticker {
-				quote.figi = security.Figi
+			if quotesDTO.QuoteResponse.Result[i].Symbol == security.Ticker {
+				quotesDTO.QuoteResponse.Result[i].SetFigi(security.Figi)
 			}
 		}
 	}

@@ -36,3 +36,7 @@ func (quote YahooQuote) Figi() string {
 func (quote YahooQuote) Timestamp() time.Time {
 	return time.Now()
 }
+
+func (quote *YahooQuote) SetFigi(newFigi string) {
+	quote.figi = newFigi
+}
