@@ -7,11 +7,6 @@ import (
 	"github.com/compoundinvest/invest-core/quote/yahooapi"
 )
 
-type TickerWithMarket struct {
-	Ticker string
-	MIC    string
-}
-
 // Universal quote fetcher
 func FetchQuotesFor(securities []entity.Security) []entity.SimpleQuote {
 	quotes := []entity.SimpleQuote{}
@@ -28,7 +23,7 @@ func FetchQuotesFor(securities []entity.Security) []entity.SimpleQuote {
 			}
 			quotes = append(quotes, belexQuote)
 		case "XNAS":
-			quotes = append(quotes, yahooapi.FetchQuotes(securities)...)
+			quotes = append(quotes, yahooapi.FetchQuotes([]entity.Security{security})...)
 		default:
 		}
 	}
