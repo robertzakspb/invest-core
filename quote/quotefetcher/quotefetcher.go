@@ -28,7 +28,7 @@ func FetchQuotesFor(securities []entity.Security) []entity.SimpleQuote {
 			}
 			quotes = append(quotes, belexQuote)
 		case "XNAS":
-			quotes = append(quotes, yahooapi.FetchQuotes([]string{security.Ticker})...)
+			quotes = append(quotes, yahooapi.FetchQuotes(securities)...)
 		default:
 		}
 	}

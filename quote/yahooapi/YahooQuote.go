@@ -18,6 +18,7 @@ type YahooQuote struct {
 	ForwardPE          float64 `json:"forwardPE"`
 	MarketCap          float64 `json:"marketCap"`
 	TrailingPE         float64 `json:"trailingPE"`
+	figi               string
 }
 
 func (quote YahooQuote) Quote() float64 {
@@ -25,11 +26,11 @@ func (quote YahooQuote) Quote() float64 {
 }
 
 func (quote YahooQuote) Currency() string {
-	return  "USD"
+	return "USD"
 }
 
 func (quote YahooQuote) Figi() string {
-	return  ""
+	return quote.figi
 }
 
 func (quote YahooQuote) Timestamp() time.Time {

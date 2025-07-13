@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/compoundinvest/invest-core/quote/entity"
 	quote "github.com/compoundinvest/invest-core/quote/entity"
 )
 
@@ -17,16 +18,21 @@ type SimpleQuote = quote.SimpleQuote
 const user_agent_key = "User-Agent"
 const user_agent_value = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/536.36 (KHTML, like Gecko) Chrome/58.0.2029.110 Safari/437.36"
 
-func FetchQuotes(tickers []string) []SimpleQuote {
+func FetchQuotes(securities []entity.Security) []SimpleQuote {
 	quotes := []quote.SimpleQuote{}
 
-	yahooQuotes := fetchQuotes(tickers)
+	yahooQuotes := fetchQuotes(securities)
 	quotes = append(quotes, quote.ConvertToSimpleQuote(yahooQuotes)...)
 
 	return quotes
 }
 
-func fetchQuotes(tickers []string) []YahooQuote {
+func fetchQuotes(securities []entity.Security) []YahooQuote {
+	tickers := []string{}
+	for _, security := range securities {
+		tickers = append(tickers, security.Ticker)
+	}
+
 	cookie := fetchAuthCookie()
 	crumb := fetchCrumb(cookie)
 
@@ -64,6 +70,14 @@ func fetchQuotes(tickers []string) []YahooQuote {
 
 	var quotesDTO YahooQuotesDTO
 	json.NewDecoder(response.Body).Decode(&quotesDTO)
+
+	for _, quote := range quotesDTO.QuoteResponse.Result {
+		for _, security := range securities {
+			if quote.Symbol == security.Ticker {
+				quote.figi = security.Figi
+			}
+		}
+	}
 
 	return quotesDTO.QuoteResponse.Result
 }
