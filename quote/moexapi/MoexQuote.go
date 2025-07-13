@@ -7,11 +7,11 @@ type MoexQuotesDTO struct {
 }
 
 type MarketData struct {
-	Data [][]interface{} `json:"data"`
+	Data [][]any `json:"data"`
 }
 
 type MoexQuote struct {
-	stockTicker  string
+	ticker  string
 	CurrentQuote float64
 	MarketCap    float64
 	figi         string

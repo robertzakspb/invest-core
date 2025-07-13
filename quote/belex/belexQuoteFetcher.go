@@ -8,8 +8,6 @@ import (
 	"strings"
 )
 
-
-
 func FetchQuoteFor(ticker, figi string) (BelexQuote, error) {
 	sourceURL := "https://www.belex.rs/trgovanje/hartija/dnevni/" + ticker
 	response, err := http.Get(sourceURL)
@@ -26,7 +24,7 @@ func FetchQuoteFor(ticker, figi string) (BelexQuote, error) {
 	html := string(content)
 	quoteHTMLTag := "<tr><td class='lb'>Cena</td><td>"
 	index := strings.Index(html, quoteHTMLTag)
-	htmlSliceContainingPrice := string(html[index+32:index+40])
+	htmlSliceContainingPrice := string(html[index+32 : index+40])
 
 	price := ""
 	for _, character := range htmlSliceContainingPrice {
@@ -45,5 +43,5 @@ func FetchQuoteFor(ticker, figi string) (BelexQuote, error) {
 		return BelexQuote{}, err
 	}
 
-	return BelexQuote{ticker, float64(parsedPrice)}, nil
+	return BelexQuote{figi, ticker, float64(parsedPrice)}, nil
 }

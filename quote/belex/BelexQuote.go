@@ -3,7 +3,8 @@ package belex
 import "time"
 
 type BelexQuote struct {
-	figi string
+	figi         string
+	ticker       string
 	currentQuote float64
 }
 
