@@ -56,6 +56,7 @@ func fetchQuotes(securities []quote.Security) []MoexQuote {
 			for _, security := range securities {
 				if security.Ticker == ticker {
 					figi = security.Figi
+					break
 				}
 			}
 
