@@ -11,11 +11,11 @@ import (
 func FetchQuotesFor(securities []entity.Security) []entity.SimpleQuote {
 	quotes := []entity.SimpleQuote{}
 
-	moexTickers := []string{} //For MOEX it makes more sense to do a bulk download of quotes
+	moexSecurities := []entity.Security{} //For MOEX it makes more sense to do a bulk download of quotes
 	for _, security := range securities {
 		switch security.MIC {
 		case "MISX":
-			moexTickers = append(moexTickers, security.Ticker)
+			moexSecurities = append(moexSecurities, security)
 		case "XBEL":
 			belexQuote, err := belex.FetchQuoteFor(security.Ticker, security.Figi)
 			if err != nil {
@@ -27,8 +27,8 @@ func FetchQuotesFor(securities []entity.Security) []entity.SimpleQuote {
 		default:
 		}
 	}
-
-	moexQuotes := moexapi.FetchQuotes(securities)
+ 
+	moexQuotes := moexapi.FetchQuotes(moexSecurities)
 	quotes = append(quotes, moexQuotes...)
 
 	return quotes
