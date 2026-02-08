@@ -33,8 +33,7 @@ func FetchHistoricalQuotesFor(figi string, config tinkoff.Config, startDate time
 		investapi.CandleInterval_CANDLE_INTERVAL_DAY,
 		startDate,
 		endDate,
-		investapi.GetCandlesRequest_CANDLE_SOURCE_INCLUDE_WEEKEND,
-		1_000_000,
+		investapi.GetCandlesRequest_CANDLE_SOURCE_INCLUDE_WEEKEND
 	)
 	if err != nil {
 		return []TinkoffQuote{}, err
