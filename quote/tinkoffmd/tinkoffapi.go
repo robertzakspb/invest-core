@@ -45,7 +45,7 @@ func FetchHistoricalQuotesFor(figi string, config investgo.Config, startDate tim
 	return parsedQuotes, nil
 }
 
-func FetchAllHistoricalQuotesFor(figi string, config investgo.Config) ([]TinkoffQuote, error) {
+func FetchAllHistoricalQuotesFor(figi string, config investgo.Config, startDate time.Time, endDate time.Time) ([]TinkoffQuote, error) {
 	client, err := investgo.NewClient(context.TODO(), config, nil)
 	if err != nil {
 		return []TinkoffQuote{}, err
@@ -59,8 +59,8 @@ func FetchAllHistoricalQuotesFor(figi string, config investgo.Config) ([]Tinkoff
 	candleRequest := investgo.GetHistoricCandlesRequest{
 		Instrument: figi,
 		Interval:   investapi.CandleInterval_CANDLE_INTERVAL_DAY,
-		From:       time.Now(), //Ignored by the API
-		To:         time.Now(), //Ignored by the API
+		From:       startDate, //Ignored by the API
+		To:         endDate, //Ignored by the API
 		File:       false,
 		FileName:   "",
 		Source:     investapi.GetCandlesRequest_CANDLE_SOURCE_INCLUDE_WEEKEND,
