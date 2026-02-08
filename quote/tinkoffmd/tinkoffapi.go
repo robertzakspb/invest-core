@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"time"
 
-	tinkoff "github.com/russianinvestments/invest-api-go-sdk/investgo"
-	investapi "github.com/russianinvestments/invest-api-go-sdk/proto"
+	"opensource.tbank.ru/invest/invest-go/investgo"
+	investapi "opensource.tbank.ru/invest/invest-go/proto"
 )
 
-func FetchHistoricalQuotesFor(figi string, config tinkoff.Config, startDate time.Time, endDate time.Time) ([]TinkoffQuote, error) {
+func FetchHistoricalQuotesFor(figi string, config investgo.Config, startDate time.Time, endDate time.Time) ([]TinkoffQuote, error) {
 	if startDate.After(time.Now()) || endDate.After(time.Now()) || startDate.After(endDate) {
 		return []TinkoffQuote{}, fmt.Errorf("attempting to fetch historical candles for invalid dates: start date: %d, end date: %d", startDate.Unix(), endDate.Unix())
 	}
@@ -18,7 +18,7 @@ func FetchHistoricalQuotesFor(figi string, config tinkoff.Config, startDate time
 		return FetchAllHistoricalQuotesFor(figi, config)
 	}
 
-	client, err := tinkoff.NewClient(context.TODO(), config, nil)
+	client, err := investgo.NewClient(context.TODO(), config, nil)
 	if err != nil {
 		return []TinkoffQuote{}, err
 	}
@@ -45,8 +45,8 @@ func FetchHistoricalQuotesFor(figi string, config tinkoff.Config, startDate time
 	return parsedQuotes, nil
 }
 
-func FetchAllHistoricalQuotesFor(figi string, config tinkoff.Config) ([]TinkoffQuote, error) {
-	client, err := tinkoff.NewClient(context.TODO(), config, nil)
+func FetchAllHistoricalQuotesFor(figi string, config investgo.Config) ([]TinkoffQuote, error) {
+	client, err := investgo.NewClient(context.TODO(), config, nil)
 	if err != nil {
 		return []TinkoffQuote{}, err
 	}
@@ -56,7 +56,7 @@ func FetchAllHistoricalQuotesFor(figi string, config tinkoff.Config) ([]TinkoffQ
 		return []TinkoffQuote{}, fmt.Errorf("failed to initialize Tinkoff's market data service")
 	}
 
-	candleRequest := tinkoff.GetHistoricCandlesRequest{
+	candleRequest := investgo.GetHistoricCandlesRequest{
 		Instrument: figi,
 		Interval:   investapi.CandleInterval_CANDLE_INTERVAL_DAY,
 		From:       time.Now(), //Ignored by the API

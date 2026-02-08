@@ -2,7 +2,7 @@ module github.com/compoundinvest/invest-core
 
 go 1.24.3
 
-require github.com/russianinvestments/invest-api-go-sdk v1.40.1
+require opensource.tbank.ru/invest/invest-go v1.44.0
 
 require (
 	cloud.google.com/go/compute v1.20.1 // indirect
