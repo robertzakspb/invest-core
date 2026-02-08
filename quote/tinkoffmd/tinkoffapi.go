@@ -5,18 +5,17 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/compoundinvest/invest-core/quote/entity"
 	tinkoff "github.com/russianinvestments/invest-api-go-sdk/investgo"
 	investapi "github.com/russianinvestments/invest-api-go-sdk/proto"
 )
 
-func FetchHistoricalQuotesFor(id entity.Security, config tinkoff.Config, startDate time.Time, endDate time.Time) ([]TinkoffQuote, error) {
+func FetchHistoricalQuotesFor(figi string, config tinkoff.Config, startDate time.Time, endDate time.Time) ([]TinkoffQuote, error) {
 	if startDate.After(time.Now()) || endDate.After(time.Now()) || startDate.After(endDate) {
 		return []TinkoffQuote{}, fmt.Errorf("attempting to fetch historical candles for invalid dates: start date: %d, end date: %d", startDate.Unix(), endDate.Unix())
 	}
 
 	if startDate.Unix() == 0 && endDate.Unix() == 0 {
-		return FetchAllHistoricalQuotesFor(id, config)
+		return FetchAllHistoricalQuotesFor(figi, config)
 	}
 
 	client, err := tinkoff.NewClient(context.TODO(), config, nil)
@@ -30,7 +29,7 @@ func FetchHistoricalQuotesFor(id entity.Security, config tinkoff.Config, startDa
 	}
 
 	candles, err := mdService.GetCandles(
-		id.Figi,
+		figi,
 		investapi.CandleInterval_CANDLE_INTERVAL_DAY,
 		startDate,
 		endDate,
@@ -41,12 +40,12 @@ func FetchHistoricalQuotesFor(id entity.Security, config tinkoff.Config, startDa
 		return []TinkoffQuote{}, err
 	}
 
-	parsedQuotes := mapTinkoffCandlesToQuotes(id, candles.Candles)
+	parsedQuotes := mapTinkoffCandlesToQuotes(figi, candles.Candles)
 
 	return parsedQuotes, nil
 }
 
-func FetchAllHistoricalQuotesFor(id entity.Security, config tinkoff.Config) ([]TinkoffQuote, error) {
+func FetchAllHistoricalQuotesFor(figi string, config tinkoff.Config) ([]TinkoffQuote, error) {
 	client, err := tinkoff.NewClient(context.TODO(), config, nil)
 	if err != nil {
 		return []TinkoffQuote{}, err
@@ -58,7 +57,7 @@ func FetchAllHistoricalQuotesFor(id entity.Security, config tinkoff.Config) ([]T
 	}
 
 	candleRequest := tinkoff.GetHistoricCandlesRequest{
-		Instrument: id.Figi,
+		Instrument: figi,
 		Interval:   investapi.CandleInterval_CANDLE_INTERVAL_DAY,
 		From:       time.Now(), //Ignored by the API
 		To:         time.Now(), //Ignored by the API
@@ -72,12 +71,12 @@ func FetchAllHistoricalQuotesFor(id entity.Security, config tinkoff.Config) ([]T
 		return []TinkoffQuote{}, err
 	}
 
-	parsedQuotes := mapTinkoffCandlesToQuotes(id, candles)
+	parsedQuotes := mapTinkoffCandlesToQuotes(figi, candles)
 
 	return parsedQuotes, nil
 }
 
-func mapTinkoffCandlesToQuotes(id entity.Security, candles []*investapi.HistoricCandle) []TinkoffQuote {
+func mapTinkoffCandlesToQuotes(figi string, candles []*investapi.HistoricCandle) []TinkoffQuote {
 	parsedQuotes := []TinkoffQuote{}
 	for _, quote := range candles {
 		if quote == nil {
@@ -85,8 +84,7 @@ func mapTinkoffCandlesToQuotes(id entity.Security, candles []*investapi.Historic
 		}
 		parsedQuote := TinkoffQuote{
 			quote:     quote.Close.ToFloat(),
-			isin:      id.ISIN,
-			figi:      id.Figi,
+			figi:      figi,
 			timestamp: time.Unix(quote.Time.GetSeconds(), 0),
 		}
 		parsedQuotes = append(parsedQuotes, parsedQuote)

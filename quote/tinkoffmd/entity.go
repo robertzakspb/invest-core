@@ -5,7 +5,6 @@ import "time"
 type TinkoffQuote struct {
 	quote     float64
 	figi      string
-	isin      string
 	timestamp time.Time
 }
 

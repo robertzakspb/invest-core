@@ -13,6 +13,8 @@ github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0-rc.5 h1:3IZOAnD058zZllQTZ
 github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0-rc.5/go.mod h1:xbKERva94Pw2cPen0s79J3uXmGzbbpDYFBFDlZ4mV/w=
 github.com/russianinvestments/invest-api-go-sdk v1.28.1 h1:XMnE38tLw9sc+U7Y/X0qMgA/CiGCNYQBQyV6uZuBmiI=
 github.com/russianinvestments/invest-api-go-sdk v1.28.1/go.mod h1:rOu2P3GMTQEkQxRpQfp+wK5k71c3SUDHIke3Ijr8cOU=
+github.com/russianinvestments/invest-api-go-sdk v1.40.1 h1:EZ9mA5fTlyspH8urdAMFXTzfUnMcVbCI3O0C88CrkUo=
+github.com/russianinvestments/invest-api-go-sdk v1.40.1/go.mod h1:rOu2P3GMTQEkQxRpQfp+wK5k71c3SUDHIke3Ijr8cOU=
 github.com/shopspring/decimal v1.3.1 h1:2Usl1nmF/WZucqkFZhnfFYxxxu8LG21F6nPQBE5gKV8=
 github.com/shopspring/decimal v1.3.1/go.mod h1:DKyhrW/HYNuLGql+MJL6WCR6knT2jwCFRcu2hWCYk4o=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
