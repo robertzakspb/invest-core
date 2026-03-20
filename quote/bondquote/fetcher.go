@@ -18,13 +18,21 @@ func FetchQuotesForFigis(figis []string, config investgo.Config) ([]TinkoffBondQ
 		return []TinkoffBondQuote{}, fmt.Errorf("failed to initialize Tinkoff's market data service")
 	}
 
-	quotes, err := mdService.GetLastPrices(figis)
+	tinkoffQuotes, err := mdService.GetLastPrices(figis)
 	if err != nil {
 		return []TinkoffBondQuote{}, err
 	}
-	for _, quote := range quotes.LastPrices {
-		fmt.Println(quote)
+
+	quotes := []TinkoffBondQuote{}
+	for _, tQuote := range tinkoffQuotes.LastPrices {
+		quote := TinkoffBondQuote{
+			quoteAsPercentage: tQuote.GetPrice().ToFloat(), //TODO: Test if the service actually provides a quote as percentage
+			figi:              tQuote.GetFigi(),
+			timestamp:         tQuote.GetTime().AsTime(),
+			ticker:            tQuote.GetTicker(),
+		}
+		quotes = append(quotes, quote)
 	}
 
-	return []TinkoffBondQuote{}, nil //FIXME
+	return quotes, nil
 }

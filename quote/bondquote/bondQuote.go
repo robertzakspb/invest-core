@@ -11,6 +11,8 @@ type BondQuote interface {
 type TinkoffBondQuote struct {
 	quoteAsPercentage float64
 	figi              string
+	timestamp         time.Time
+	ticker            string
 }
 
 func (quote TinkoffBondQuote) QuoteAsPercentage() float64 {
@@ -22,5 +24,5 @@ func (quote TinkoffBondQuote) Figi() string {
 }
 
 func (quote TinkoffBondQuote) Timestamp() time.Time {
-	return quote.Timestamp()
+	return quote.timestamp
 }
