@@ -45,17 +45,7 @@ import (
 // 	return parsedQuotes, nil
 // }
 
-func FetchAllHistoricalQuotesFor(figi string, config investgo.Config, startDate time.Time, endDate time.Time) ([]TinkoffQuote, error) {
-	client, err := investgo.NewClient(context.TODO(), config, nil)
-	if err != nil {
-		return []TinkoffQuote{}, err
-	}
-
-	mdService := client.NewMarketDataServiceClient()
-	if mdService == nil {
-		return []TinkoffQuote{}, fmt.Errorf("failed to initialize Tinkoff's market data service")
-	}
-
+func FetchAllHistoricalQuotesFor(client *investgo.MarketDataServiceClient, figi string,  startDate time.Time, endDate time.Time) ([]TinkoffQuote, error) {
 	candleRequest := investgo.GetHistoricCandlesRequest{
 		Instrument: figi,
 		Interval:   investapi.CandleInterval_CANDLE_INTERVAL_DAY,
@@ -66,7 +56,7 @@ func FetchAllHistoricalQuotesFor(figi string, config investgo.Config, startDate 
 		Source:     investapi.GetCandlesRequest_CANDLE_SOURCE_INCLUDE_WEEKEND,
 	}
 
-	candles, err := mdService.GetAllHistoricCandles(&candleRequest)
+	candles, err := client.GetAllHistoricCandles(&candleRequest)
 	if err != nil {
 		return []TinkoffQuote{}, err
 	}
