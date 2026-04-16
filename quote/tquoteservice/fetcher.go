@@ -26,10 +26,10 @@ func FetchQuotesForFigis(figis []string, config investgo.Config) ([]TQuote, erro
 	quotes := []TQuote{}
 	for _, tQuote := range tinkoffQuotes.LastPrices {
 		quote := TQuote{
-			QuoteAsPercentage: tQuote.GetPrice().ToFloat(), //TODO: Test if the service actually provides a quote as percentage
-			Figi:              tQuote.GetFigi(),
-			Timestamp:         tQuote.GetTime().AsTime(),
-			Ticker:            tQuote.GetTicker(),
+			quote:     tQuote.GetPrice().ToFloat(), //TODO: Test if the service actually provides a quote as percentage
+			figi:      tQuote.GetFigi(),
+			timestamp: tQuote.GetTime().AsTime(),
+			ticker:    tQuote.GetTicker(),
 		}
 		quotes = append(quotes, quote)
 	}

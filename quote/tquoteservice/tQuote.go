@@ -3,8 +3,21 @@ package bondquote
 import "time"
 
 type TQuote struct {
-	QuoteAsPercentage float64
-	Figi              string
-	Timestamp         time.Time
-	Ticker            string
+	quote     float64
+	figi      string
+	timestamp time.Time
+	ticker    string
+}
+
+func (t *TQuote) Quote() float64 {
+	return t.quote
+}
+func (t *TQuote) Figi() string {
+	return t.figi
+}
+func (t *TQuote) Currency() string {
+	return ""
+}
+func (t *TQuote) Timestamp() time.Time {
+	return t.timestamp
 }
