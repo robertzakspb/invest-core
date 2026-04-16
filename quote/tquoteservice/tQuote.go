@@ -1,4 +1,4 @@
-package bondquote
+package tquoteservice
 
 import "time"
 
