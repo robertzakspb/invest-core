@@ -1,6 +1,6 @@
 module github.com/compoundinvest/invest-core
 
-go 1.26.1
+go 1.26.4
 
 require opensource.tbank.ru/invest/invest-go v1.48.0
 
