@@ -9,6 +9,15 @@ type TQuote struct {
 	ticker    string
 }
 
+func New(quote float64, figi, ticker string, timestamp time.Time) TQuote {
+	return TQuote{
+		quote:     quote,
+		figi:      figi,
+		timestamp: timestamp,
+		ticker:    ticker,
+	}
+}
+
 func (t *TQuote) Quote() float64 {
 	return t.quote
 }
