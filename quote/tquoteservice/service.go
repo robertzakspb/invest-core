@@ -84,17 +84,18 @@ func GetBondPriceAndYield(client *investgo.Client, tickers []string) ([]BondQuot
 				ytmFound = true
 				ytm = mv.Value.ToFloat()
 			}
-			if !priceInPercentageFound || !ytmFound {
-				errorList = append(errorList, errors.New("Either the quote or YTM was not found in the response"))
-				continue
-			}
-			bondQuote := BondQuote{
-				Ticker:            instrument.Ticker,
-				QuoteAsPercentage: priceInPercentage,
-				YTM:               ytm,
-			}
-			parsedQuotes = append(parsedQuotes, bondQuote)
 		}
+
+		if !priceInPercentageFound || !ytmFound {
+			errorList = append(errorList, errors.New("Either the quote or YTM was not found in the response"))
+			continue
+		}
+		bondQuote := BondQuote{
+			Ticker:            instrument.Ticker,
+			QuoteAsPercentage: priceInPercentage,
+			YTM:               ytm,
+		}
+		parsedQuotes = append(parsedQuotes, bondQuote)
 	}
 
 	return parsedQuotes, errorList
