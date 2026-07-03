@@ -89,6 +89,7 @@ func GetBondPriceAndYield(client *investgo.Client, figis []string) ([]BondQuote,
 				continue
 			}
 			bondQuote := BondQuote{
+				Figi: instrument.InstrumentUid,
 				QuoteAsPercentage: priceInPercentage,
 				YTM: ytm,
 			}

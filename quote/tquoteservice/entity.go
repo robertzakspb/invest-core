@@ -3,6 +3,7 @@ package tquoteservice
 import "time"
 
 type BondQuote struct {
+	Figi              string
 	QuoteAsPercentage float64
 	YTM               float64
 }
