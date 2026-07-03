@@ -3,7 +3,7 @@ package tquoteservice
 import "time"
 
 type BondQuote struct {
-	Isin              string
+	Ticker            string
 	QuoteAsPercentage float64
 	YTM               float64
 }

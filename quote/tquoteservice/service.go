@@ -39,7 +39,7 @@ func FetchQuotesForFigis(figis []string, config investgo.Config) ([]TQuote, erro
 	return quotes, nil
 }
 
-func GetBondPriceAndYield(client *investgo.Client, isins []string) ([]BondQuote, []error) {
+func GetBondPriceAndYield(client *investgo.Client, tickers []string) ([]BondQuote, []error) {
 	parsedQuotes := []BondQuote{}
 	errorList := []error{}
 
@@ -53,7 +53,7 @@ func GetBondPriceAndYield(client *investgo.Client, isins []string) ([]BondQuote,
 	valuesTypes = append(valuesTypes, investapi.MarketValueType_INSTRUMENT_VALUE_LAST_PRICE)
 	valuesTypes = append(valuesTypes, investapi.MarketValueType_INSTRUMENT_VALUE_YIELD)
 
-	quotes, err := mdService.GetMarketValues(isins, valuesTypes)
+	quotes, err := mdService.GetMarketValues(tickers, valuesTypes)
 	if err != nil {
 		errorList = append(errorList, err)
 		return parsedQuotes, errorList
@@ -89,9 +89,9 @@ func GetBondPriceAndYield(client *investgo.Client, isins []string) ([]BondQuote,
 				continue
 			}
 			bondQuote := BondQuote{
-				Isin: instrument.InstrumentUid,
+				Ticker:            instrument.Ticker,
 				QuoteAsPercentage: priceInPercentage,
-				YTM: ytm,
+				YTM:               ytm,
 			}
 			parsedQuotes = append(parsedQuotes, bondQuote)
 		}
