@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/compoundinvest/invest-core/quote/entity"
 	"opensource.tbank.ru/invest/invest-go/investgo"
 	investapi "opensource.tbank.ru/invest/invest-go/proto"
 )
@@ -39,8 +40,8 @@ func FetchQuotesForFigis(figis []string, config investgo.Config) ([]TQuote, erro
 	return quotes, nil
 }
 
-func GetBondPriceAndYield(client *investgo.Client, tickers []string) ([]TBondQuote, []error) {
-	parsedQuotes := []TBondQuote{}
+func GetBondPriceAndYield(client *investgo.Client, tickers []string) ([]entity.BondQuote, []error) {
+	parsedQuotes := []entity.BondQuote{}
 	errorList := []error{}
 
 	mdService := client.NewMarketDataServiceClient()

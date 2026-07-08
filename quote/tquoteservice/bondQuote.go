@@ -7,18 +7,18 @@ type TBondQuote struct {
 }
 
 // Implementation of the BondQuote interface
-func (b *TBondQuote) QuoteAsPercentage() float64 {
+func (b TBondQuote) QuoteAsPercentage() float64 {
 	return b.quoteAsPercentage
 }
 
-func (b *TBondQuote) Ytm() float64 {
+func (b TBondQuote) Ytm() float64 {
 	return b.ytm
 }
 
-func (b *TBondQuote) Ticker() string {
+func (b TBondQuote) Ticker() string {
 	return b.ticker
 }
 
-func (b *TBondQuote) Isin() string {
+func (b TBondQuote) Isin() string {
 	return ""
 }
