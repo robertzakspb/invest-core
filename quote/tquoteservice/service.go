@@ -1,7 +1,6 @@
 package tquoteservice
 
 import (
-	"context"
 	"errors"
 	"fmt"
 
@@ -10,12 +9,7 @@ import (
 	investapi "opensource.tbank.ru/invest/invest-go/proto"
 )
 
-func FetchQuotesForFigis(figis []string, config investgo.Config) ([]TQuote, error) {
-	client, err := investgo.NewClient(context.TODO(), config, nil)
-	if err != nil {
-		return []TQuote{}, err
-	}
-
+func FetchQuotesForFigis(client *investgo.Client, figis []string) ([]TQuote, error) {
 	mdService := client.NewMarketDataServiceClient()
 	if mdService == nil {
 		return []TQuote{}, fmt.Errorf("failed to initialize Tinkoff's market data service")
