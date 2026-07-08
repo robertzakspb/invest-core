@@ -9,6 +9,13 @@ type SimpleQuote interface {
 	Timestamp() time.Time
 }
 
+type BondQuote interface {
+	QuoteAsPercentage() float64
+	Ytm() float64
+	Ticker() string
+	Isin() string
+}
+
 // Converts slices of structs implementing SimpleQuote to a slice of SimpleQuote instances
 func ConvertToSimpleQuote[T SimpleQuote](quotes []T) []SimpleQuote {
 	quotesAsInterface := []SimpleQuote{}

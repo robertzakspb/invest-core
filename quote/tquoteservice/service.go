@@ -39,8 +39,8 @@ func FetchQuotesForFigis(figis []string, config investgo.Config) ([]TQuote, erro
 	return quotes, nil
 }
 
-func GetBondPriceAndYield(client *investgo.Client, tickers []string) ([]BondQuote, []error) {
-	parsedQuotes := []BondQuote{}
+func GetBondPriceAndYield(client *investgo.Client, tickers []string) ([]TBondQuote, []error) {
+	parsedQuotes := []TBondQuote{}
 	errorList := []error{}
 
 	mdService := client.NewMarketDataServiceClient()
@@ -90,10 +90,10 @@ func GetBondPriceAndYield(client *investgo.Client, tickers []string) ([]BondQuot
 			errorList = append(errorList, errors.New("Either the quote or YTM was not found in the response"))
 			continue
 		}
-		bondQuote := BondQuote{
-			Ticker:            instrument.Ticker,
-			QuoteAsPercentage: priceInPercentage,
-			YTM:               ytm,
+		bondQuote := TBondQuote{
+			ticker:            instrument.Ticker,
+			quoteAsPercentage: priceInPercentage,
+			ytm:               ytm,
 		}
 		parsedQuotes = append(parsedQuotes, bondQuote)
 	}
