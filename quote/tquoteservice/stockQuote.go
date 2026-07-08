@@ -9,7 +9,7 @@ type TQuote struct {
 	ticker    string
 }
 
-func New(quote float64, figi, ticker string, timestamp time.Time) TQuote {
+func NewStockQuote(quote float64, figi, ticker string, timestamp time.Time) TQuote {
 	return TQuote{
 		quote:     quote,
 		figi:      figi,

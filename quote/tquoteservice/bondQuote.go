@@ -6,6 +6,14 @@ type TBondQuote struct {
 	ytm               float64
 }
 
+func NewBondQuote(ticker string, quoteAsPercentage, ytm float64) TBondQuote {
+	return TBondQuote{
+		ticker: ticker,
+		quoteAsPercentage: quoteAsPercentage,
+		ytm: ytm,
+	}
+}
+
 // Implementation of the BondQuote interface
 func (b TBondQuote) QuoteAsPercentage() float64 {
 	return b.quoteAsPercentage
