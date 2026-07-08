@@ -18,15 +18,15 @@ func NewStockQuote(quote float64, figi, ticker string, timestamp time.Time) TQuo
 	}
 }
 
-func (t *TQuote) Quote() float64 {
+func (t TQuote) Quote() float64 {
 	return t.quote
 }
-func (t *TQuote) Figi() string {
+func (t TQuote) Figi() string {
 	return t.figi
 }
-func (t *TQuote) Currency() string {
+func (t TQuote) Currency() string {
 	return ""
 }
-func (t *TQuote) Timestamp() time.Time {
+func (t TQuote) Timestamp() time.Time {
 	return t.timestamp
 }

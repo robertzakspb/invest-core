@@ -9,18 +9,18 @@ import (
 	investapi "opensource.tbank.ru/invest/invest-go/proto"
 )
 
-func FetchQuotesForFigis(client *investgo.Client, figis []string) ([]TQuote, error) {
+func FetchQuotesForFigis(client *investgo.Client, figis []string) ([]entity.SimpleQuote, error) {
 	mdService := client.NewMarketDataServiceClient()
 	if mdService == nil {
-		return []TQuote{}, fmt.Errorf("failed to initialize Tinkoff's market data service")
+		return []entity.SimpleQuote{}, fmt.Errorf("failed to initialize Tinkoff's market data service")
 	}
 
 	tinkoffQuotes, err := mdService.GetLastPrices(figis)
 	if err != nil {
-		return []TQuote{}, err
+		return []entity.SimpleQuote{}, err
 	}
 
-	quotes := []TQuote{}
+	quotes := []entity.SimpleQuote{}
 	for _, tQuote := range tinkoffQuotes.LastPrices {
 		quote := TQuote{
 			quote:     tQuote.GetPrice().ToFloat(), //TODO: Test if the service actually provides a quote as percentage
