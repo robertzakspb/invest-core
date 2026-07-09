@@ -1,16 +1,20 @@
 package tquoteservice
 
+import "time"
+
 type TBondQuote struct {
 	ticker            string
 	quoteAsPercentage float64
 	ytm               float64
+	timestamp         time.Time
 }
 
-func NewBondQuote(ticker string, quoteAsPercentage, ytm float64) TBondQuote {
+func NewBondQuote(ticker string, quoteAsPercentage, ytm float64, timestamp time.Time) TBondQuote {
 	return TBondQuote{
 		ticker:            ticker,
 		quoteAsPercentage: quoteAsPercentage,
 		ytm:               ytm,
+		timestamp:         timestamp,
 	}
 }
 
@@ -29,4 +33,8 @@ func (b TBondQuote) Ticker() string {
 
 func (b TBondQuote) Figi() string {
 	return ""
+}
+
+func (b TBondQuote) Timestamp() time.Time {
+	return b.timestamp
 }
