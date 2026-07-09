@@ -8,9 +8,9 @@ type TBondQuote struct {
 
 func NewBondQuote(ticker string, quoteAsPercentage, ytm float64) TBondQuote {
 	return TBondQuote{
-		ticker: ticker,
+		ticker:            ticker,
 		quoteAsPercentage: quoteAsPercentage,
-		ytm: ytm,
+		ytm:               ytm,
 	}
 }
 
@@ -27,6 +27,6 @@ func (b TBondQuote) Ticker() string {
 	return b.ticker
 }
 
-func (b TBondQuote) Isin() string {
+func (b TBondQuote) Figi() string {
 	return ""
 }

@@ -4,5 +4,5 @@ type BondQuote interface {
 	QuoteAsPercentage() float64
 	Ytm() float64
 	Ticker() string
-	Isin() string
+	Figi() string
 }
