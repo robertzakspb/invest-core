@@ -3,9 +3,9 @@ package entity
 import "time"
 
 type BondQuote interface {
-	QuoteAsPercentage() float64
-	Ytm() float64
-	Ticker() string
-	Figi() string
-	Timestamp() time.Time
+	GetQuoteAsPercentage() float64
+	GetYtm() float64
+	GetTicker() string
+	GetFigi() string
+	GetTimestamp() time.Time
 }
