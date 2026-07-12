@@ -19,22 +19,22 @@ func NewBondQuote(ticker string, quoteAsPercentage, ytm float64, timestamp time.
 }
 
 // Implementation of the BondQuote interface
-func (b TBondQuote) QuoteAsPercentage() float64 {
+func (b TBondQuote) GetQuoteAsPercentage() float64 {
 	return b.quoteAsPercentage
 }
 
-func (b TBondQuote) Ytm() float64 {
+func (b TBondQuote) GetYtm() float64 {
 	return b.ytm
 }
 
-func (b TBondQuote) Ticker() string {
+func (b TBondQuote) GetTicker() string {
 	return b.ticker
 }
 
-func (b TBondQuote) Figi() string {
+func (b TBondQuote) GetFigi() string {
 	return ""
 }
 
-func (b TBondQuote) Timestamp() time.Time {
+func (b TBondQuote) GetTimestamp() time.Time {
 	return b.timestamp
 }
